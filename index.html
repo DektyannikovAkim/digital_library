@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>DigitaLLib</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="header-border">
+            <div class="header-medium container">
+                <a href="#" class="logo">
+                    <span>DigitaLLib</span>
+                </a>
+                <div class="wrapper-for-search">
+                    <form class="search">
+                        <input type="text" class="search-text">
+                        <button class="search-button"></button>
+                    </form>
+                    <button class="favorites-button" type="button" @click="showFavorites = !showFavorites">Избранное</button>
+                </div>
+                <div class="favorites-list" v-show="showFavorites">
+                    <div class="favorites-content">
+                        <button class="close-favorites-list" @click="showFavorites = !showFavorites"></button>
+                        <figure class="favorites-item" v-if="favoritesBooks.length" v-for="book of favoritesBooks" :key="book.id">
+                            <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
+                            <figcaption class="favorites-item-info">
+                                <div class="wrapper-for-info">
+                                    <h3>{{ book.volumeInfo.title }}</h3>
+                                </div>
+                            </figcaption>
+                        </figure>
+                        <span class="no-books-in-favorites" v-if="likedBooks == 0">У Вас пока что нет понравившихся книг :(</span>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="container">
+
+            <div class="books-list">
+                <figure class="books-item" v-for="(book, indx) of books" :key="book.id">
+                    <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
+                    <figcaption class="item-info">
+                        <div class="wrapper-for-interaction">
+                            <div class="wrapper-for-rating">
+                                <button class="count-buttons remove-rating"></button>
+                                <input class="number-of-rating" type="text" readonly>
+                                <button class="count-buttons add-rating"></button>
+                            </div>
+                            <button class="book-add" type="button" @click="addFavorites(indx)"></button>
+                        </div>
+                        <h3>{{ book.volumeInfo.title }}</h3>
+                        <h4 v-if="book.volumeInfo.authors" v-for="author of book.volumeInfo.authors">{{ author }}</h4>
+                        <h4 v-else>Author unknown</h4>
+                    </figcaption>
+                </figure>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <span>&#169; Аким Дектянников</span>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
