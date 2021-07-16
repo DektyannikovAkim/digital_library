@@ -6,9 +6,9 @@ const app = {
     data() {
         return {
             showFavorites: false,
-            likedBooks: localStorage.length,
             books: [],
-            favoritesBooks: []
+            favoritesBooks: [],
+            activeBtn: false
         }
     },
     methods: {
@@ -22,21 +22,35 @@ const app = {
         getFavoritesBooks() {
             let keys = Object.keys(localStorage);
             let i = keys.length;
-
+            if (this.favoritesBooks.length) {
+                // this.clearFavorites();
+            }
+            this.favoritesBooks.length = 0;
             while (i--) {
                 this.favoritesBooks.push(JSON.parse(localStorage.getItem(keys[i])));
             }
-            console.log(this.favoritesBooks);
         },
-        addFavorites(indx) {
-            if (!localStorage.getItem(indx)) {
-                localStorage.setItem(indx, JSON.stringify(this.books[indx]))
-            } else localStorage.removeItem(indx);
-            // Подумать можно ли упростить проверку содержания localStorage для отображения текста в избранном
-            this.likedBooks = localStorage.length;
+        addFavorites(item) {
+            if (!localStorage.getItem(item.id)) {
+                localStorage.setItem(item.id, JSON.stringify(this.books.find(el => el.id === item.id)));
+            } else {
+                localStorage.removeItem(item.id);
+            }
+            this.getFavoritesBooks()
+        },
+        clearFavorites() {
+            let favoritesList = document.querySelectorAll('.favorites-item');
+            for (let i = 0; i < favoritesList.length; i++) {
+                favoritesList[i].remove();
+            }
         },
         searchBooks() {
 
+        },
+        actvFavorite(item) {
+            if (localStorage.getItem(item.id)) {
+                return 'favorite';
+            } else return '';
         }
     },
 
@@ -46,12 +60,6 @@ const app = {
                 this.books.push(...data.items);
             });
         this.getFavoritesBooks();
-    },
-
-    watch: {
-        likedBooks() {
-            this.getFavoritesBooks();
-        }
     }
 }
 

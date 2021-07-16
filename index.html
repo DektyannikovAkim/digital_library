@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
     <title>DigitaLLib</title>
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <header class="header-border">
             <div class="header-medium container">
                 <a href="#" class="logo">
@@ -34,7 +36,8 @@
                                 </div>
                             </figcaption>
                         </figure>
-                        <span class="no-books-in-favorites" v-if="likedBooks == 0">У Вас пока что нет понравившихся книг :(</span>
+                        <span class="no-books-in-favorites" v-show="!favoritesBooks.length">У Вас пока что нет понравившихся книг :(</span>
+                        <button @click="clearFavorites()">clear favotites</button>
                     </div>
                 </div>
             </div>
@@ -44,7 +47,7 @@
         <main class="container">
 
             <div class="books-list">
-                <figure class="books-item" v-for="(book, indx) of books" :key="book.id">
+                <figure class="books-item" v-for="book of books" :key="book.id">
                     <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
                     <figcaption class="item-info">
                         <div class="wrapper-for-interaction">
@@ -53,7 +56,9 @@
                                 <input class="number-of-rating" type="text" readonly>
                                 <button class="count-buttons add-rating"></button>
                             </div>
-                            <button class="book-add" type="button" @click="addFavorites(indx)"></button>
+                            <button class="book-add" type="button" @click="addFavorites(book)">
+                                <i class="fas fa-star" :class="actvFavorite(book)"></i>
+                            </button>
                         </div>
                         <h3>{{ book.volumeInfo.title }}</h3>
                         <h4 v-if="book.volumeInfo.authors" v-for="author of book.volumeInfo.authors">{{ author }}</h4>
