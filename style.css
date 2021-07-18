@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: Lato;
 }
 
 button {
@@ -119,12 +120,13 @@ button {
 
 .favorites-item {
     display: flex;
+    align-items: center;
     padding: 10px 0px;
 }
 
 .favorites-item>img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 70px;
 }
 
 .favorites-item-info {
@@ -136,6 +138,55 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+}
+
+.remove-favorites {
+    font-size: 17px;
+    height: 40px;
+    width: 180px;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #9c8080;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.clear {
+    font-size: 17px;
+    height: 40px;
+    width: 160px;
+    margin-top: 25px;
+    padding: 5px;
+    background-color: #9c8080;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.sort_by {
+    display: inline-flex;
+    font-size: 14px;
+    margin: 35px 0px;
+    color: #6f6e6e;
+    background-color: #ffffff;
+    border: solid 1px #ebebeb;
+}
+
+.sort_by-text {
+    padding: 9px 8px 7px 13px;
+    border-right: solid 1px #ebebeb;
+}
+
+.sort_by-select {
+    width: 95px;
+    font-size: 14px;
+    color: #6f6e6e;
+    padding: 0px 9px 0px 11px;
+    background: none;
+}
+
+.sort_by-select:not(:last-child) {
+    border-right: solid 1px #ebebeb;
 }
 
 .books-list {
@@ -143,7 +194,7 @@ button {
     grid-template-columns: repeat(auto-fit, 260px);
     grid-row-gap: 25px;
     justify-content: space-between;
-    margin: 70px 0px;
+    margin: 35px 0px;
 }
 
 .books-item:hover {
@@ -197,9 +248,9 @@ button {
     width: calc(100% / 3);
     border-left: none;
     border-right: none;
-    font-size: 14px;
+    font-size: 30px;
     line-height: 33px;
-    color: #666;
+    color: #0d0d0d;
     -webkit-appearance: none;
     border-radius: 0;
     outline: none;
@@ -220,7 +271,6 @@ button {
     height: 38px;
     width: 50px;
     background-color: #f16d7f;
-    /* color: rgb(240, 226, 35); */
     border-radius: 8px;
 }
 

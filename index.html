@@ -19,11 +19,11 @@
                     <span>DigitaLLib</span>
                 </a>
                 <div class="wrapper-for-search">
-                    <form class="search">
+                    <form class="search" @submit.prevent="searchBooks">
                         <input type="text" class="search-text">
                         <button class="search-button"></button>
                     </form>
-                    <button class="favorites-button" type="button" @click="showFavorites = !showFavorites">Избранное</button>
+                    <button class="favorites-button" type="button" @click="showFavorites = !showFavorites">Favorites</button>
                 </div>
                 <div class="favorites-list" v-show="showFavorites">
                     <div class="favorites-content">
@@ -33,11 +33,12 @@
                             <figcaption class="favorites-item-info">
                                 <div class="wrapper-for-info">
                                     <h3>{{ book.volumeInfo.title }}</h3>
+                                    <button class="remove-favorites" @click="removeFavorites(book)">Remove from favorites</button>
                                 </div>
                             </figcaption>
                         </figure>
-                        <span class="no-books-in-favorites" v-show="!favoritesBooks.length">У Вас пока что нет понравившихся книг :(</span>
-                        <button @click="clearFavorites()">clear favotites</button>
+                        <span class="no-books-in-favorites" v-show="!favoritesBooks.length">You don't have any favorite books yet :(</span>
+                        <button v-show="favoritesBooks.length" class="clear" @click="clearFavorites()">Clear favotites</button>
                     </div>
                 </div>
             </div>
@@ -45,16 +46,23 @@
         </header>
 
         <main class="container">
-
+            <div class="sort_by">
+                <div class="sort_by-text">
+                    <span>Sort By</span>
+                </div>
+                <button class="sort_by-select" @click="sortByCategories('alphabet')">Alphabet</button>
+                <button class="sort_by-select" @click="sortByCategories('rating')">Rating</button>
+                <button class="sort_by-select" @click="sortByCategories('date')">Date of issue</button>
+            </div>
             <div class="books-list">
                 <figure class="books-item" v-for="book of books" :key="book.id">
                     <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
                     <figcaption class="item-info">
                         <div class="wrapper-for-interaction">
                             <div class="wrapper-for-rating">
-                                <button class="count-buttons remove-rating"></button>
-                                <input class="number-of-rating" type="text" readonly>
-                                <button class="count-buttons add-rating"></button>
+                                <button class="count-buttons remove-rating" @click="removeRating(book)"></button>
+                                <input class="number-of-rating" type="text" :value="book.rating" readonly>
+                                <button class="count-buttons add-rating" @click="addRating(book)"></button>
                             </div>
                             <button class="book-add" type="button" @click="addFavorites(book)">
                                 <i class="fas fa-star" :class="actvFavorite(book)"></i>
