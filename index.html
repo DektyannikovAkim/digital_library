@@ -19,62 +19,16 @@
                     <span>DigitaLLib</span>
                 </a>
                 <div class="wrapper-for-search">
-                    <form class="search" @submit.prevent="searchBooks">
-                        <input type="text" class="search-text">
-                        <button class="search-button"></button>
-                    </form>
+                    <search></search>
                     <button class="favorites-button" type="button" @click="showFavorites = !showFavorites">Favorites</button>
                 </div>
-                <div class="favorites-list" v-show="showFavorites">
-                    <div class="favorites-content">
-                        <button class="close-favorites-list" @click="showFavorites = !showFavorites"></button>
-                        <figure class="favorites-item" v-if="favoritesBooks.length" v-for="book of favoritesBooks" :key="book.id">
-                            <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
-                            <figcaption class="favorites-item-info">
-                                <div class="wrapper-for-info">
-                                    <h3>{{ book.volumeInfo.title }}</h3>
-                                    <button class="remove-favorites" @click="removeFavorites(book)">Remove from favorites</button>
-                                </div>
-                            </figcaption>
-                        </figure>
-                        <span class="no-books-in-favorites" v-show="!favoritesBooks.length">You don't have any favorite books yet :(</span>
-                        <button v-show="favoritesBooks.length" class="clear" @click="clearFavorites()">Clear favotites</button>
-                    </div>
-                </div>
+                <favorites-books ref="favoritesBooks" :favorites-books="favoritesBooks"></favorites-books>
             </div>
-
         </header>
 
         <main class="container">
-            <div class="sort_by">
-                <div class="sort_by-text">
-                    <span>Sort By</span>
-                </div>
-                <button class="sort_by-select" @click="sortByCategories('alphabet')">Alphabet</button>
-                <button class="sort_by-select" @click="sortByCategories('rating')">Rating</button>
-                <button class="sort_by-select" @click="sortByCategories('date')">Date of issue</button>
-            </div>
-            <div class="books-list">
-                <figure class="books-item" v-for="book of books" :key="book.id">
-                    <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="Фото книги">
-                    <figcaption class="item-info">
-                        <div class="wrapper-for-interaction">
-                            <div class="wrapper-for-rating">
-                                <button class="count-buttons remove-rating" @click="removeRating(book)"></button>
-                                <input class="number-of-rating" type="text" :value="book.rating" readonly>
-                                <button class="count-buttons add-rating" @click="addRating(book)"></button>
-                            </div>
-                            <button class="book-add" type="button" @click="addFavorites(book)">
-                                <i class="fas fa-star" :class="actvFavorite(book)"></i>
-                            </button>
-                        </div>
-                        <h3>{{ book.volumeInfo.title }}</h3>
-                        <h4 v-if="book.volumeInfo.authors" v-for="author of book.volumeInfo.authors">{{ author }}</h4>
-                        <h4 v-else>Author unknown</h4>
-                    </figcaption>
-                </figure>
-
-            </div>
+            <sorter></sorter>
+            <books ref="books" :books="books"></books>
         </main>
 
         <footer class="footer">
@@ -82,7 +36,11 @@
         </footer>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="script.js"></script>
+    <script src="favoritesComp.js"></script>
+    <script src="booksComp.js"></script>
+    <script src="searchComp.js"></script>
+    <script src="filterComp.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>

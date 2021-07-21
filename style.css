@@ -139,6 +139,11 @@ button {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: 335px;
+}
+
+.wrapper-for-info>h3 {
+    text-align: center;
 }
 
 .remove-favorites {
@@ -178,7 +183,7 @@ button {
 }
 
 .sort_by-select {
-    width: 95px;
+    width: 115px;
     font-size: 14px;
     color: #6f6e6e;
     padding: 0px 9px 0px 11px;
@@ -187,6 +192,10 @@ button {
 
 .sort_by-select:not(:last-child) {
     border-right: solid 1px #ebebeb;
+}
+
+.sort_by-select>img {
+    width: 15px;
 }
 
 .books-list {
