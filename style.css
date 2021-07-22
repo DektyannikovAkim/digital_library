@@ -168,6 +168,12 @@ button {
     border-radius: 8px;
 }
 
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .sort_by {
     display: inline-flex;
     font-size: 14px;
@@ -196,6 +202,78 @@ button {
 
 .sort_by-select>img {
     width: 15px;
+}
+
+.wrapper-for-categories {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-right: 20px;
+}
+
+.categories {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    padding: 7px 25px;
+    width: 115px;
+    background-color: #ffffff;
+    color: #6f6e6e;
+    border: solid 1px #ebebeb;
+}
+
+.categories-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #c5c5c5;
+    margin-bottom: 32px;
+}
+
+.arrow-down {
+    position: absolute;
+    right: 5px;
+    width: 0px;
+    height: 0px;
+    top: 14px;
+    border-top: 6px solid #6f6e6e;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.arrow-up {
+    position: absolute;
+    right: 5px;
+    width: 0px;
+    height: 0px;
+    top: 14px;
+    border-top: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ef5b70;
+}
+
+.categories-info {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 33px;
+    left: 0px;
+}
+
+.category-items {
+    width: 115px;
+    color: #616161;
+    font-size: 14px;
+    padding: 7px 10px 7px 11px;
+    background: rgba(205, 214, 219);
+    border: 1px solid #c5c5c5;
+}
+
+.category-items:not(:last-child) {
+    border-bottom: none;
 }
 
 .books-list {

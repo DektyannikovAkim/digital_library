@@ -36,18 +36,22 @@ const books = {
             if (item.rating > 0) {
                 item.rating--;
             }
+        },
+        getBooks(items) {
+            for (let item of items) {
+                let newItem = '';
+                if (localStorage.getItem(item.id)) {
+                    newItem = Object.assign({ rating: 0, favorite: true }, item);
+                } else newItem = Object.assign({ rating: 0, favorite: false }, item);
+                this.books.push(newItem);
+            }
         }
     },
+
     mounted() {
         this.$parent.getJson()
             .then(data => {
-                for (let item of data.items) {
-                    let newItem = '';
-                    if (localStorage.getItem(item.id)) {
-                        newItem = Object.assign({ rating: 0, favorite: true }, item);
-                    } else newItem = Object.assign({ rating: 0, favorite: false }, item);
-                    this.books.push(newItem);
-                }
+                this.getBooks(data.items)
                 console.log(this.books);
             })
     },

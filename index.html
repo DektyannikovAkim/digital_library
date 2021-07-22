@@ -27,7 +27,16 @@
         </header>
 
         <main class="container">
-            <sorter></sorter>
+            <div class="filters">
+                <sorter></sorter>
+                <div class="wrapper-for-categories">
+                    <categories :category-name="categoryNames[0]" :array-of-sections="authors"></categories>
+                    <categories :category-name="categoryNames[1]" :array-of-sections="yearOfPublishing"></categories>
+                    <categories :category-name="categoryNames[2]" :array-of-sections="publishingHouse"></categories>
+                </div>
+
+            </div>
+
             <books ref="books" :books="books"></books>
         </main>
 
@@ -40,6 +49,7 @@
     <script src="booksComp.js"></script>
     <script src="searchComp.js"></script>
     <script src="filterComp.js"></script>
+    <script src="categoriesComp.js"></script>
     <script src="main.js"></script>
 </body>
 
