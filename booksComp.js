@@ -38,16 +38,16 @@ const books = {
             }
         },
         getBooks(items) {
+            this.$root.$refs.favoritesBooks.getFavoritesBooks();
             for (let item of items) {
                 let newItem = '';
-                if (localStorage.getItem(item.id)) {
+                if (this.$parent.favoritesBooks.find(el => el.id === item.id)) {
                     newItem = Object.assign({ rating: 0, favorite: true }, item);
                 } else newItem = Object.assign({ rating: 0, favorite: false }, item);
                 this.books.push(newItem);
             }
         }
     },
-
     mounted() {
         this.$parent.getJson()
             .then(data => {

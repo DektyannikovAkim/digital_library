@@ -18,7 +18,9 @@ const favoritesBooks = {
     props: ['favoritesBooks'],
     methods: {
         getFavoritesBooks() {
-            this.$parent.favoritesBooks = JSON.parse(localStorage.getItem('favoritesBooks'));
+            if (JSON.parse(localStorage.getItem('favoritesBooks'))) {
+                this.$parent.favoritesBooks = JSON.parse(localStorage.getItem('favoritesBooks'));
+            }
         },
         toggleFavorites(item) {
             let findItem = this.$parent.books.find(el => el.id === item.id);
@@ -42,9 +44,6 @@ const favoritesBooks = {
                 this.$parent.books[i].favorite = false;
             }
         }
-    },
-    mounted() {
-        this.getFavoritesBooks();
     },
     template: `
     <div class="favorites-list" v-show="$root.showFavorites">
