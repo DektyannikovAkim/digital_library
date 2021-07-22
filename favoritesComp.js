@@ -6,7 +6,7 @@ const favoriteItem = {
         <figcaption class="favorites-item-info">
              <div class="wrapper-for-info">
                         <h3>{{ item.volumeInfo.title }}</h3>
-                        <button class="remove-favorites" @click="$parent.removeFavorites(item)">Remove from favorites</button>
+                        <button class="remove-favorites" @click="$parent.toggleFavorites(item)">Remove from favorites</button>
                 </div>
         </figcaption>
     </figure>
@@ -18,35 +18,23 @@ const favoritesBooks = {
     props: ['favoritesBooks'],
     methods: {
         getFavoritesBooks() {
-            let keys = Object.keys(localStorage);
-            let i = keys.length;
-            this.favoritesBooks.length = 0;
-            while (i--) {
-                this.favoritesBooks.push(JSON.parse(localStorage.getItem(keys[i])));
-            }
+            this.$parent.favoritesBooks = JSON.parse(localStorage.getItem('favoritesBooks'));
         },
         toggleFavorites(item) {
-            if (!localStorage.getItem(item.id)) {
-                localStorage.setItem(item.id, JSON.stringify(this.$parent.books.find(el => el.id === item.id)));
-                item.favorite = true;
-            } else {
-                localStorage.removeItem(item.id);
-                item.favorite = false;
-            }
-            this.getFavoritesBooks()
-        },
-        removeFavorites(item) {
             let findItem = this.$parent.books.find(el => el.id === item.id);
-            if (findItem) {
+            if (this.$parent.favoritesBooks.find(el => el.id === item.id)) {
                 findItem.favorite = false;
+                this.$parent.favoritesBooks = this.$parent.favoritesBooks.filter(el => el.id !== item.id)
+            } else {
+                findItem.favorite = true;
+                this.$parent.favoritesBooks.push(item)
             }
-            localStorage.removeItem(item.id);
-            this.getFavoritesBooks();
+            localStorage.setItem('favoritesBooks', JSON.stringify(this.$parent.favoritesBooks))
         },
         clearFavorites() {
             let favoritesList = document.querySelectorAll('.favorites-item');
             localStorage.clear();
-            this.favoritesBooks.length = 0;
+            this.$parent.favoritesBooks.length = 0;
             for (let i = 0; i < favoritesList.length; i++) {
                 favoritesList[i].remove();
             }
