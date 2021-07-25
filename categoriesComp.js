@@ -16,7 +16,7 @@ const categorySection = {
 
 
 const categories = {
-    props: ['categoryName', "arrayOfSections"],
+    props: ["itemCategory"],
     components: {
         'category-section': categorySection,
     },
@@ -74,12 +74,12 @@ const categories = {
     },
     template: `
     <div class="categories" @click="showCatigories = !showCatigories">
-                    {{ categoryName }}
+                    {{ itemCategory.nameOfCategories }}
                     <div class="arrow-down" v-if="!showCatigories"></div>
                     <div class="arrow-up" v-else></div>
                     <category-section
-                    :array-of-sections="arrayOfSections"
-                    :category-name="categoryName"
+                    :array-of-sections="itemCategory.arrayOfCategories"
+                    :category-name="itemCategory.nameOfCategories"
                     ></category-section>
                 </div>
     `

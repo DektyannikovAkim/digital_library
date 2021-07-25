@@ -9,10 +9,20 @@ const app = {
             showCatigories: false,
             books: [],
             favoritesBooks: [],
-            authors: [],
-            yearOfPublishing: [],
-            publishingHouse: [],
-            categoryNames: ['Authors', 'Year', 'Publisher']
+            categoryNames: {
+                authors: {
+                    nameOfCategories: "Authors",
+                    arrayOfCategories: [],
+                },
+                year: {
+                    nameOfCategories: "Year",
+                    arrayOfCategories: [],
+                },
+                publisher: {
+                    nameOfCategories: "Publisher",
+                    arrayOfCategories: [],
+                }
+            }
         }
     },
     components: {
@@ -47,19 +57,19 @@ const app = {
                 for (let item of data.items) {
                     if (item.volumeInfo.authors) {
                         for (let author of item.volumeInfo.authors) {
-                            this.authors.push(author);
+                            this.categoryNames.authors.arrayOfCategories.push(author);
                         }
                     }
                     if (item.volumeInfo.publishedDate) {
-                        this.yearOfPublishing.push((new Date(item.volumeInfo.publishedDate)).getFullYear());
+                        this.categoryNames.year.arrayOfCategories.push((new Date(item.volumeInfo.publishedDate)).getFullYear());
                     }
                     if (item.volumeInfo.publisher) {
-                        this.publishingHouse.push(item.volumeInfo.publisher);
+                        this.categoryNames.publisher.arrayOfCategories.push(item.volumeInfo.publisher);
                     }
                 }
-                this.authors = this.unique(this.authors);
-                this.yearOfPublishing = this.unique(this.yearOfPublishing);
-                this.publishingHouse = this.unique(this.publishingHouse);
+                this.categoryNames.authors.arrayOfCategories = this.unique(this.categoryNames.authors.arrayOfCategories);
+                this.categoryNames.year.arrayOfCategories = this.unique(this.categoryNames.year.arrayOfCategories);
+                this.categoryNames.publisher.arrayOfCategories = this.unique(this.categoryNames.publisher.arrayOfCategories);
 
             })
     }

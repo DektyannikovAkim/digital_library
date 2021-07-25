@@ -34,15 +34,9 @@ const favoritesBooks = {
             localStorage.setItem('favoritesBooks', JSON.stringify(this.$parent.favoritesBooks))
         },
         clearFavorites() {
-            let favoritesList = document.querySelectorAll('.favorites-item');
             localStorage.clear();
             this.$parent.favoritesBooks.length = 0;
-            for (let i = 0; i < favoritesList.length; i++) {
-                favoritesList[i].remove();
-            }
-            for (let i = 0; i < this.$parent.books.length; i++) {
-                this.$parent.books[i].favorite = false;
-            }
+            this.$parent.books.forEach(el => el.favorite = false);
         }
     },
     template: `
