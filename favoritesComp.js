@@ -23,14 +23,14 @@ const favoritesBooks = {
             }
         },
         toggleFavorites(item) {
-            let findItem = this.$parent.books.find(el => el.id === item.id);
             if (this.$parent.favoritesBooks.find(el => el.id === item.id)) {
-                findItem.favorite = false;
                 this.$parent.favoritesBooks = this.$parent.favoritesBooks.filter(el => el.id !== item.id)
+                this.$parent.books.find(el => el.id === item.id).favorite = false;
             } else {
-                findItem.favorite = true;
-                this.$parent.favoritesBooks.push(item)
+                this.$parent.favoritesBooks.push(item);
+                this.$parent.books.find(el => el.id === item.id).favorite = true;
             }
+
             localStorage.setItem('favoritesBooks', JSON.stringify(this.$parent.favoritesBooks))
         },
         clearFavorites() {
